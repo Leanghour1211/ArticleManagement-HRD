@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Upload File</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div style="float:right;">
+            <a th:href="@{/upload?lang=en}">En</a>
+            <a th:href="@{/upload?lang=kh}">Kh</a>
+        </div>
+        <h1 th:text="#{form.upload.header}" class="col-sm-12 col-md-12">Upload your File</h1>
+        <form action="/upload/file" method="POST" enctype="multipart/form-data" class="col-md-6 col-sm-12">
+            <fieldset>
+                <legend th:text="#{form.upload.uploadto}">Upload your file to server</legend>
+                <table class="table table-condensed">
+                    <tr>
+                        <td th:text="#{form.upload.header}"></td>
+                        <td>
+                             <input type="file" name="file"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" th:value="#{form.upload.upload}"/></td>
+                        
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+    </body>
+</html>

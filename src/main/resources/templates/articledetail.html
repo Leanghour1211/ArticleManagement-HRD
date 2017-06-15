@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Article Detail</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+            img{
+                width:300px;
+                height: auto;
+            }
+           
+        </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div style="float:right;">
+            <a th:href="@{/articles/view(id=${article.id},lang=en)}">En</a>
+            <a th:href="@{/articles/view(id=${article.id},lang=kh)}">Kh</a>
+        </div>
+        <h1 th:text="#{form.article.details.header}">Article Detail</h1>
+        <div th:object="${article}">
+            <div class="image ">
+                <img th:src="*{thumbnail}"/>
+            </div>
+                
+                <table class="table table-bordered ">
+                    <tr>
+                        <td class="col-md-6 col-sm-6">
+                            <label th:text="#{form.articles.infor.id}"></label>
+                        </td>
+                        <td>
+                            <span th:text="*{id}"></span><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label th:text="#{form.articles.infor.title}"></label>
+                        </td>
+                        <td>
+                             <span th:text="*{title}"></span><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label th:text="#{form.articles.infor.description}"></label>
+                        </td>
+                        <td>
+                            <span th:text="*{description}"></span><br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label th:text="#{form.articles.infor.author}"></label>
+                        </td>
+                        <td>
+                            <span th:text="*{author}"></span>
+                        </td>
+                    </tr>
+                </table>
+
+        </div>
+    </body>
+</html>

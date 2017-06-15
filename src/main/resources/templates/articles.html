@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Articles</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+           
+            img{
+                width: 100px;
+                height: 100px;
+            }
+            .header
+            {
+                font-size: 30pt;
+                text-align: center;
+                background-color: #907867;
+            }
+        </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div style="float:right;">
+            <a href="/articles?lang=en">En</a>
+            <a href="/articles?lang=kh">Kh</a>
+        </div>
+        <div class="col-md-12 col-sm-12 header" th:text="#{form.articles.header}">
+            
+        </div>
+            <div>
+            <a th:href="@{/articles/add}" class="btn btn-default" th:text="#{form.articles.addnew}">Add new Article</a>
+            </div>
+        <table border="1" class="table table-hover col-md-12">
+            <thead>
+                <tr>
+                    <th th:text="#{form.articles.infor.id}">ID</th>
+                    <th th:text="#{form.articles.infor.title}">Title</th>
+                    <th th:text="#{form.articles.infor.description}">Description</th>
+                    <th th:text="#{form.articles.infor.author}">Author</th>
+                    <th th:text="#{form.articles.infor.cover}">Cover</th>
+                    <th th:text="#{form.articles.infor.action}">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="article : ${articles}" th:object="${article}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{title}"></td>
+                    <td th:text="*{description}"></td>
+                    <td th:text="*{author}"></td>
+                    <td>
+                        <img th:src="*{thumbnail}" />
+                    </td>
+                    <td>
+                        <a  th:href="@{articles/view(id=*{id})}" th:text="#{form.articles.infor.action.view}"></a><br/>
+                        <a  th:href="@{articles/remove(id=*{id})}" th:text="#{form.articles.infor.action.remove}"></a><br/>
+                        <a  th:href="@{articles/update(id=*{id})}" th:text="#{form.articles.infor.action.edit}"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </body>
+</html>

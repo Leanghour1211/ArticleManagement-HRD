@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Add/Update</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            .err
+            {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="float:right;">
+            <a th:href="${addStatus}?@{/articles/add?lang=en}:@{/articles/update(id=${article.id},lang=en)}">En</a>
+            <a th:href="${addStatus}?@{/articles/add?lang=kh}:@{/articles/update(id=${article.id},lang=kh)}">Kh</a>
+        </div>
+        <h1 th:text="${addStatus}?#{form.save.article.header.add}:#{form.save.article.header.update}">Article</h1>
+        <form th:action="${addStatus}?'/articles/saves':'/articles/updates'" th:object="${article}" method="POST">
+            <fieldset>
+                <legend th:text="#{form.save.article.legend}">Article Information</legend>
+                <table class="table table-bordered col-md-12 col-sm-12">
+                    <tr >
+                        <td class=" col-md-6 col-sm-6">
+                            <label th:text="#{form.articles.infor.id}">ID</label>
+                        </td>
+                        <td class=" col-md-6 col-sm-6" >
+                            <input type="text" th:value="*{id}" disabled="true" /><input type="text" th:field="*{id}" style="visibility: hidden;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class=" col-md-6 col-sm-6">
+                            <label th:text="#{form.articles.infor.title}">Title</label>
+                        </td>
+                        <td class=" col-md-6 col-sm-6">
+                            <input type="text" th:field="*{title}"/>
+                            <p class="err" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class=" col-md-6 col-sm-6">
+                            <label th:text="#{form.articles.infor.description}">Description</label>
+                        </td>
+                        <td class=" col-md-6 col-sm-6">
+                            <input type="text" th:field="*{description}"/>
+                            <p class="err" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class=" col-md-6 col-sm-6">
+                            <label th:text="#{form.articles.infor.author}">Author</label>
+                        </td>
+                        <td class=" col-md-6 col-sm-6">
+                            <input type="text" th:field="*{author}"/> 
+                            <p class="err" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class=" col-md-6 col-sm-6">
+                            <label th:text="#{form.articles.infor.cover}">Thumbnail</label>
+                        </td>
+                        <td class=" col-md-6 col-sm-6">
+                            <input type="text" th:field="*{thumbnail}"/>
+                            <p class="err" th:if="${#fields.hasErrors('thumbnail')}" th:errors="*{thumbnail}"></p>
+                        </td>
+                    </tr>
+                </table>
+            <input type="submit" th:value="${addStatus}?#{form.save.article.add}:#{form.save.article.update}"/>    
+            </fieldset>
+            
+        </form>
+        
+    </body>
+</html>
