@@ -58,7 +58,11 @@ public class ArticleController {
     public String addnewArticle(Article article, ModelMap model)
     {
         Article art=new Article();
-        art.setId(articleService.getAllArticles().get(articleService.getAllArticles().size()-1).getId()+1);
+        int id=1;
+        if(articleService.getAllArticles().size()>0){
+        id= articleService.getAllArticles().get(articleService.getAllArticles().size()-1).getId()+1;
+        }
+        art.setId(id);
         model.addAttribute("article",art);
         model.addAttribute("addStatus", true);
         return "saveArticle";
