@@ -104,7 +104,7 @@ public class ArticleController {
         return "redirect:/articles";
     }
     @PostMapping("/articles/updates") 
-    public String updateArticle(@Valid Article article,BindingResult result, ModelMap model)
+    public String updateArticle(@Valid Article article,BindingResult result,@PathParam("page") Integer page, ModelMap model)
     {
        if(result.hasErrors())
         {
@@ -117,13 +117,14 @@ public class ArticleController {
         {
             System.out.println("Success!");
         }
-        return "redirect:/articles";
+        return "redirect:/articles/go?page="+page;
     }
     @GetMapping("/articles/update")
-    public String updatenewArticle(Article article,@PathParam("id") Integer id,ModelMap model)
+    public String updatenewArticle(Article article,@PathParam("id") Integer id,@PathParam("page") Integer page,ModelMap model)
     {
         model.addAttribute("article",articleService.getArticle(id));
         model.addAttribute("addStatus",false);
+        model.addAttribute("page",page);
         return "saveArticle";
     }
     @GetMapping("/articles/go")
