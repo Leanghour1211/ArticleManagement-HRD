@@ -7,7 +7,9 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Article;
 import com.example.demo.service.ArticleService;
+import com.github.javafaker.Faker;
 import javax.validation.Valid;
+import javax.validation.constraints.Past;
 import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -30,6 +33,23 @@ public class ArticleController {
     {
         this.articleService=articleService;
     }
+//    @RequestMapping("/fillfakedatas")
+//    @ResponseBody
+//    public String fillfakedata()
+//    {
+//        for(int i=1;i<=60;i++)
+//        {
+//            Faker faker=new Faker();
+//            Article art=new Article();
+//            art.setId(i);
+//            art.setTitle(faker.book().title());
+//            art.setDescription(faker.lorem().sentences(1).toString());
+//            art.setAuthor(faker.book().author());
+//            art.setThumbnail(faker.internet().image());
+//            articleService.addArticle(art);
+//        }
+//        return "success full";
+//    }
     @RequestMapping(value="/")
     public String index()
     {
@@ -38,8 +58,9 @@ public class ArticleController {
     @RequestMapping(value="/articles")
     public String articles(ModelMap model)
     {
-        model.addAttribute("articles",articleService.getAllArticles());
-        return "articles";
+//        model.addAttribute("articles",articleService.getAllArticles());
+//        return "articles";
+        return "redirect:/articles/go?page=1";
     }
     @GetMapping("/articles/view")
     public String articledetails(ModelMap model,@PathParam("id") Integer id)
@@ -49,10 +70,10 @@ public class ArticleController {
         return "articledetail";
     }
     @GetMapping("/articles/remove")
-    public String removeArticle(@PathParam("id") Integer id)
+    public String removeArticle(@PathParam("id") Integer id,@PathParam("page") Integer page)
     {
         articleService.removeArticle(id);
-        return "redirect:/articles";
+        return "redirect:/articles/go?page="+page;
     }
     @GetMapping("/articles/add")
     public String addnewArticle(Article article, ModelMap model)
@@ -105,6 +126,15 @@ public class ArticleController {
         model.addAttribute("addStatus",false);
         return "saveArticle";
     }
-    
+    @GetMapping("/articles/go")
+    public String getViews(@PathParam("page") Integer page,ModelMap model)
+    {
+        int maxpage=(int)articleService.getAllArticles().size()/5;
+        if(articleService.getAllArticles().size()%5!=0)maxpage++;
+        model.addAttribute("articles",articleService.getArticles(5,page));
+        model.addAttribute("maxpage",maxpage);
+        model.addAttribute("page",page);
+        return "articles";
+    }
     
 }

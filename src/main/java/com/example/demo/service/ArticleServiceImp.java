@@ -50,5 +50,16 @@ public class ArticleServiceImp implements ArticleService{
     public boolean updateArticle(Article article) {
         return articleRepository.updateArticle(article);
     }
+
+    @Override
+    public List<Article> getArticles(int limit, int page) {
+        int maxpage=(int)getAllArticles().size()/limit;
+        if(getAllArticles().size()%5!=0)maxpage++;
+        if(limit<5)limit=5;
+        if(page<1)page=1;
+        page--;
+        if(page>maxpage)page=maxpage;
+        return articleRepository.getArticles(limit, page*limit);
+    }
     
 }

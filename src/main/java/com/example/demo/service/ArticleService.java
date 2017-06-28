@@ -18,4 +18,5 @@ public interface ArticleService {
     boolean removeArticle(int id);
     boolean addArticle(Article article);
     boolean updateArticle(Article article);
+    List<Article> getArticles(int limit,int page);
 }

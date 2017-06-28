@@ -30,4 +30,6 @@ public interface ArticleRepository
     boolean addArticle(Article article);
     @Update("Update articles set title=#{title},description=#{description},author=#{author},thumbnail=#{thumbnail} where id=#{id}")
     boolean updateArticle(Article article);
+    @Select("Select id,title,description,author,thumbnail from articles order by id asc limit #{limit} offset #{offset}")
+    List<Article> getArticles(@Param("limit")int limit,@Param("offset")int offset);
 }
