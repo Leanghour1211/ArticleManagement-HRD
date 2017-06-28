@@ -24,7 +24,7 @@ and open the template in the editor.
             <a th:href="${addStatus}?@{/articles/add?lang=kh}:@{/articles/update(id=${article.id},lang=kh)}">Kh</a>
         </div>
         <h1 th:text="${addStatus}?#{form.save.article.header.add}:#{form.save.article.header.update}">Article</h1>
-        <form th:action="${addStatus}?'/articles/saves':@{/articles/updates(page=${page})}" th:object="${article}" method="POST">
+        <form th:action="${addStatus}?'/articles/saves':@{/articles/updates(page=${page})}" th:object="${article}" method="POST" enctype="multipart/form-data">
             <fieldset>
                 <legend th:text="#{form.save.article.legend}">Article Information</legend>
                 <table class="table table-bordered col-md-12 col-sm-12">
@@ -70,6 +70,7 @@ and open the template in the editor.
                         <td class=" col-md-6 col-sm-6">
                             <input type="text" th:field="*{thumbnail}"/>
                             <p class="err" th:if="${#fields.hasErrors('thumbnail')}" th:errors="*{thumbnail}"></p>
+                            <input type="file" name="file"/>
                         </td>
                     </tr>
                 </table>

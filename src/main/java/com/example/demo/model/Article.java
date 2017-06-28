@@ -27,7 +27,7 @@ public class Article {
     private String description;
     @NotEmpty
     private String author;
-    @NotEmpty
+    
     private String thumbnail;
 
     public int getId() {

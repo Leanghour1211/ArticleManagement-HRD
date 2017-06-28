@@ -7,7 +7,9 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Article;
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.UploadService;
 import com.github.javafaker.Faker;
+import javax.servlet.annotation.MultipartConfig;
 import javax.validation.Valid;
 import javax.validation.constraints.Past;
 import javax.websocket.server.PathParam;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -28,6 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ArticleController {
     private ArticleService articleService;
+    @Autowired
+    private UploadService uploadService;
     @Autowired
     public ArticleController(ArticleService articleService)
     {
@@ -89,7 +94,7 @@ public class ArticleController {
         return "saveArticle";
     }
     @PostMapping("/articles/saves")
-    public String saveArticle(@Valid Article article,BindingResult result,ModelMap model)
+    public String saveArticle(@PathParam("file") MultipartFile file,@Valid Article article,BindingResult result,ModelMap model)
     {
         if(result.hasErrors())
         {
@@ -97,14 +102,19 @@ public class ArticleController {
             model.addAttribute("addStatus",true);
             return "saveArticle";
         }
+        if(file.getSize()>0){
+        String thumbnail = uploadService.upload(file);
+		article.setThumbnail(thumbnail);
+        }
         if(articleService.addArticle(article))
         {
             System.out.println("Success!");
         }
+        
         return "redirect:/articles";
     }
     @PostMapping("/articles/updates") 
-    public String updateArticle(@Valid Article article,BindingResult result,@PathParam("page") Integer page, ModelMap model)
+    public String updateArticle(@PathParam("file") MultipartFile file,@Valid Article article,BindingResult result,@PathParam("page") Integer page, ModelMap model)
     {
        if(result.hasErrors())
         {
@@ -112,6 +122,10 @@ public class ArticleController {
             model.addAttribute("addStatus", false);
             model.addAttribute("article",article);
             return "saveArticle";
+        }
+        if(file.getSize()>0){
+        String thumbnail = uploadService.upload(file);
+		article.setThumbnail(thumbnail);
         }
         if(articleService.updateArticle(article))
         {
@@ -132,6 +146,7 @@ public class ArticleController {
     {
         int maxpage=(int)articleService.getAllArticles().size()/5;
         if(articleService.getAllArticles().size()%5!=0)maxpage++;
+        if(page>maxpage)page=maxpage;
         model.addAttribute("articles",articleService.getArticles(5,page));
         model.addAttribute("maxpage",maxpage);
         model.addAttribute("page",page);
