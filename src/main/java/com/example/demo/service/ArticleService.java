@@ -19,4 +19,6 @@ public interface ArticleService {
     boolean addArticle(Article article);
     boolean updateArticle(Article article);
     List<Article> getArticles(int limit,int page);
+    int getMaxpage(int limit);
+    
 }

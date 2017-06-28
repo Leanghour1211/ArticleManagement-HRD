@@ -144,8 +144,8 @@ public class ArticleController {
     @GetMapping("/articles/go")
     public String getViews(@PathParam("page") Integer page,ModelMap model)
     {
-        int maxpage=(int)articleService.getAllArticles().size()/5;
-        if(articleService.getAllArticles().size()%5!=0)maxpage++;
+        int maxpage=articleService.getMaxpage(5);
+        if(maxpage==0)maxpage=1;
         if(page>maxpage)page=maxpage;
         model.addAttribute("articles",articleService.getArticles(5,page));
         model.addAttribute("maxpage",maxpage);
