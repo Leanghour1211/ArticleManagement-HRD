@@ -64,7 +64,7 @@ public class ArticleServiceImp implements ArticleService{
     @Override
     public int getMaxpage(int limit) {
         int maxpage=(int)getAllArticles().size()/limit;
-        if(getAllArticles().size()%5!=0)maxpage++;
+        if(getAllArticles().size()%limit!=0)maxpage++;
         return maxpage;
     }
     

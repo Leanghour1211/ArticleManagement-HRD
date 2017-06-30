@@ -34,8 +34,8 @@ and open the template in the editor.
     </head>
     <body>
         <div style="float:right;">
-            <a href="/articles?lang=en">En</a>
-            <a href="/articles?lang=kh">Kh</a>
+            <a th:href="@{/articles/go(page=${page},lang=en)}">En</a>
+            <a th:href="@{/articles/go(page=${page},lang=kh)}">Kh</a>
         </div>
         <div class="col-md-12 col-sm-12 header" th:text="#{form.articles.header}">
             

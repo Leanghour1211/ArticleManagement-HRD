@@ -91,6 +91,7 @@ public class ArticleController {
         art.setId(id);
         model.addAttribute("article",art);
         model.addAttribute("addStatus", true);
+        
         return "saveArticle";
     }
     @PostMapping("/articles/saves")
@@ -111,7 +112,7 @@ public class ArticleController {
             System.out.println("Success!");
         }
         
-        return "redirect:/articles";
+        return "redirect:/articles/go?page="+articleService.getMaxpage(5);
     }
     @PostMapping("/articles/updates") 
     public String updateArticle(@PathParam("file") MultipartFile file,@Valid Article article,BindingResult result,@PathParam("page") Integer page, ModelMap model)
