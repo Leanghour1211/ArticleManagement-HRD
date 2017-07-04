@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Articles</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+           
+            img{
+                width: 100px;
+                height: 100px;
+            }
+            .header
+            {
+                font-size: 30pt;
+                text-align: center;
+                background-color: #907867;
+            }
+            .activepage{
+                
+                background-color: graytext;
+            }
+            .notactivepage{
+                
+            }
+            #hid
+            {
+                visibility: hidden;
+            }
+        </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div style="float:right;">
+            <a th:href="@{/ajax/articles?lang=en}">En</a>
+            <a th:href="@{/ajax/articles?lang=kh}">Kh</a>
+        </div>
+        <div class="col-md-12 col-sm-12 header" th:text="#{form.articles.header}">
+            
+        </div>
+        <br/>
+        <div>
+            <label th:text="#{form.articles.infor.category}"></label>
+            <input type="text" th:value="${category_id}"/>
+            <label th:text="#{form.articles.infor.title}"></label><input type="text" th:value="${title}"/>
+            <button id="search">Search</button>
+        </div>
+        <br/>
+        <table border="1" class="table table-hover col-md-12">
+            <thead>
+                <tr>
+                    <th th:text="#{form.articles.infor.id}">ID</th>
+                    <th th:text="#{form.articles.infor.title}">Title</th>
+                    <th th:text="#{form.articles.infor.description}">Description</th>
+                    <th th:text="#{form.articles.infor.author}">Author</th>
+                    <th th:text="#{form.articles.infor.cover}">Cover</th>
+                    <th th:text="#{form.articles.infor.category}">Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+        
+        <script th:inline="javascript" >
+            $(document).ready(function() {
+                $.get('/rest/articles/get', function(data) {
+                    var tb='';
+                    data.forEach( function(element, index) {
+                        tb+='<tr>'+
+                        '<td>'+element.id+'</td>'+
+                        '<td>'+element.title+'</td>'+
+                        '<td>'+element.description+'</td>'+
+                        '<td>'+element.author+'</td>'+
+                        '<td><img src="'+element.thumbnail+'"/></td>'+
+                        '<td>'+element.category.name+'</td>'+
+                        +'</tr>';
+                    });
+                    $("tbody").html(tb);
+                });
+                $("#search").click(function() {
+                    
+
+
+
+                  /*<![CDATA[*/
+                    
+                     
+                     var ur=/*[[@{/rest/articles/get(category_id=${category_id},title=${title})}]]*/ '';
+
+                   /*]]>*/
+                    
+                    alert(ur);
+                    $.get(ur, function(data) {
+                        var tb='';
+                        data.forEach( function(element, index) {
+                            tb+='<tr>'+
+                            '<td>'+element.id+'</td>'+
+                            '<td>'+element.title+'</td>'+
+                            '<td>'+element.description+'</td>'+
+                            '<td>'+element.author+'</td>'+
+                            '<td><img src="'+element.thumbnail+'"/></td>'+
+                            '<td>'+element.category.name+'</td>'+
+                            +'</tr>';
+                        });
+                        $("tbody").html(tb);
+                    });
+                });
+            });
+        </script>
+            
+    </body>
+</html>

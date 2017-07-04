@@ -6,6 +6,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Article;
+import com.example.demo.model.filter.ArticleFilter;
 import com.example.demo.repository.ArticleRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,11 @@ public class ArticleServiceImp implements ArticleService{
         int maxpage=(int)getAllArticles().size()/limit;
         if(getAllArticles().size()%limit!=0)maxpage++;
         return maxpage;
+    }
+
+    @Override
+    public List<Article> getFilteredArticles(ArticleFilter filter) {
+        return articleRepository.getFitleredArticles(filter);
     }
     
 }
