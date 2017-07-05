@@ -22,7 +22,7 @@ public class ArticleProvide {
             SELECT("a.id,a.title,a.description,a.author,a.thumbnail");
             SELECT("c.id as category_id, c.name");
             FROM("articles a");
-            INNER_JOIN("category c on a.category_id=c.id");
+            INNER_JOIN("category c on a.category_id=c.id order by a.id");
         }}.toString();
     }
     public String getFilteredArticles(ArticleFilter filter)
@@ -36,6 +36,8 @@ public class ArticleProvide {
             WHERE("c.id=#{category_id}");
             if(filter.getTitle()!=null)
             WHERE("a.title ILIKE '%'||#{title}||'%'");
+            //if(filter.getPage()!=null)
+            
             ORDER_BY("a.id");
         }}.toString();
     }

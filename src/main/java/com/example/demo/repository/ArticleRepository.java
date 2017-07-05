@@ -33,7 +33,7 @@ public interface ArticleRepository
     Article getArticle(int id);
     @Delete("Delete from articles where id=#{id}")
     boolean removeArticle(@Param("id") int id);
-    @Insert("Insert into articles(id,title,description,author,thumbnail) values(#{id},#{title},#{description},#{author},#{thumbnail})")
+    @Insert("Insert into articles(id,title,description,author,thumbnail,category_id) values(#{id},#{title},#{description},#{author},#{thumbnail},#{category.id})")
     boolean addArticle(Article article);
     @Update("Update articles set title=#{title},description=#{description},author=#{author},thumbnail=#{thumbnail} where id=#{id}")
     boolean updateArticle(Article article);

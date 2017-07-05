@@ -7,6 +7,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Article;
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.CategoryService;
 import com.example.demo.service.UploadService;
 import com.github.javafaker.Faker;
 import javax.servlet.annotation.MultipartConfig;
@@ -33,6 +34,8 @@ public class ArticleController {
     private ArticleService articleService;
     @Autowired
     private UploadService uploadService;
+    @Autowired
+    private CategoryService categoryService;
     @Autowired
     public ArticleController(ArticleService articleService)
     {
@@ -91,6 +94,7 @@ public class ArticleController {
         art.setId(id);
         model.addAttribute("article",art);
         model.addAttribute("addStatus", true);
+        model.addAttribute("categories",categoryService.getAllCategory() );
         
         return "saveArticle";
     }

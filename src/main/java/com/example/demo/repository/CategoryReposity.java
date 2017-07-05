@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CategoryReposity {
-    @Select("Select * from category")
+    @Select("Select * from category order by id asc")
     List<Category> getAllCategory();
     
 }

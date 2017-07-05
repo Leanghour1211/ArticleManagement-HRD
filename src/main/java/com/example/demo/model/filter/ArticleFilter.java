@@ -12,6 +12,15 @@ package com.example.demo.model.filter;
 public class ArticleFilter {
     private Integer category_id;
     private String title;
+    private Integer page;
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
 
     public Integer getCategory_id() {
         return category_id;

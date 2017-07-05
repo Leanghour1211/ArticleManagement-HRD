@@ -74,6 +74,15 @@ and open the template in the editor.
                             <input type="file" name="file"/>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                           <label th:text="#{form.articles.infor.category}">Category</label> 
+                           <select th:field="${article.category.id}">
+                               <option th:each="category :${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                           </select>
+                        </td>
+                    </tr>
+                    
                 </table>
             <input type="submit" th:value="${addStatus}?#{form.save.article.add}:#{form.save.article.update}"/>    
             </fieldset>
