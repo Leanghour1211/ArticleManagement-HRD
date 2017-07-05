@@ -141,6 +141,7 @@ public class ArticleController {
         model.addAttribute("page",page);
         return "saveArticle";
     }
+    // /articles/go?page=1
     @GetMapping("/articles/go")
     public String getViews(@PathParam("page") Integer page,ModelMap model)
     {
