@@ -39,5 +39,12 @@ public class ArticleProvide {
             ORDER_BY("a.id");
         }}.toString();
     }
+    public String getRowCount()
+    {
+        return new SQL(){{
+            SELECT("count(*)");
+            FROM("articles");
+        }}.toString();
+    }
 
 }

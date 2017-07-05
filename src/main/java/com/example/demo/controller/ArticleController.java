@@ -153,5 +153,11 @@ public class ArticleController {
         model.addAttribute("page",page);
         return "articles";
     }
+    @GetMapping("/seerows")
+    @ResponseBody
+    public String getRows()
+    {
+        return articleService.getRowCount()+"";
+    }
     
 }

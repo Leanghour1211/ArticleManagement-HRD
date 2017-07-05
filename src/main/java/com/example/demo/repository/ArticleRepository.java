@@ -46,5 +46,7 @@ public interface ArticleRepository
             })
     List<Article> getFitleredArticles(ArticleFilter filter);
     
+    @SelectProvider(method = "getRowCount",type = ArticleProvide.class)
+    Integer getRowCount();
 
 }

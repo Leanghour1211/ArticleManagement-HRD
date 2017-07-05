@@ -73,5 +73,10 @@ public class ArticleServiceImp implements ArticleService{
     public List<Article> getFilteredArticles(ArticleFilter filter) {
         return articleRepository.getFitleredArticles(filter);
     }
+
+    @Override
+    public int getRowCount() {
+       return articleRepository.getRowCount();
+    }
     
 }
