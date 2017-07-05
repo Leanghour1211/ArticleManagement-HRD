@@ -48,8 +48,14 @@ and open the template in the editor.
         <br/>
         <div>
             <label th:text="#{form.articles.infor.category}"></label>
-            <input type="text" th:value="${category_id}"/>
-            <label th:text="#{form.articles.infor.title}"></label><input type="text" th:value="${title}"/>
+            <select id="categ" th:value="${category_id}">
+                <option value="0">not selected</option>
+                <option value="1">Poem</option>
+                <option value="2">Fiction</option>
+                <option value="3">War</option>
+                <option value="4">History</option>
+            </select>
+            <label th:text="#{form.articles.infor.title}"></label><input type="text" th:value="${title}" id="titl"/>
             <button id="search">Search</button>
         </div>
         <br/>
@@ -86,17 +92,33 @@ and open the template in the editor.
                     $("tbody").html(tb);
                 });
                 $("#search").click(function() {
-                    
+
+                    var id=$("#categ").val();
+                    var ti=$("#titl").val();
+                    var ur= '/rest/articles/get';
+
+                    /*<![CDATA[*/
+                        if(id!=0)
+                        {
+                            ur+='?category_id='+id;
+                        }
+                        if(ti.length>0)
+                        {
+                            if(id==0)
+                            {
+                                ur+='?';
+                            }
+                            else
+                            {
+                                ur+='&';
+                            }
+                            ur+='title='+ti;
+                        }
+                                           
+
+                    /*]]>*/
 
 
-
-                  /*<![CDATA[*/
-                    
-                     
-                     var ur=/*[[@{/rest/articles/get(category_id=${category_id},title=${title})}]]*/ '';
-
-                   /*]]>*/
-                    
                     alert(ur);
                     $.get(ur, function(data) {
                         var tb='';
