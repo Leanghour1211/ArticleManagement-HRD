@@ -6,6 +6,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Article;
+import com.example.demo.model.filter.ArticleFilter;
 import java.util.List;
 
 /**
@@ -20,5 +21,6 @@ public interface ArticleService {
     boolean updateArticle(Article article);
     List<Article> getArticles(int limit,int page);
     int getMaxpage(int limit);
-    
+    List<Article> getFilteredArticles(ArticleFilter filter);
+    int getRowCount();
 }

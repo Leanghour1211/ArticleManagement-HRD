@@ -30,6 +30,7 @@ and open the template in the editor.
                 <table class="table table-bordered col-md-12 col-sm-12">
                     <tr >
                         <td class=" col-md-6 col-sm-6">
+                            
                             <label th:text="#{form.articles.infor.id}">ID</label>
                         </td>
                         <td class=" col-md-6 col-sm-6" >
@@ -73,6 +74,15 @@ and open the template in the editor.
                             <input type="file" name="file"/>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                           <label th:text="#{form.articles.infor.category}">Category</label> 
+                           <select th:field="${article.category.id}">
+                               <option th:each="category :${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                           </select>
+                        </td>
+                    </tr>
+                    
                 </table>
             <input type="submit" th:value="${addStatus}?#{form.save.article.add}:#{form.save.article.update}"/>    
             </fieldset>
