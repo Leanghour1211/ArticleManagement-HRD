@@ -64,6 +64,7 @@ and open the template in the editor.
                     <th th:text="#{form.articles.infor.author}">Author</th>
                     <th th:text="#{form.articles.infor.cover}">Cover</th>
                     <th th:text="#{form.articles.infor.category}">Category</th>
+                    <th th:text="#{form.articles.infor.action}">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -90,6 +91,9 @@ and open the template in the editor.
                         '<td>'+element.author+'</td>'+
                         '<td><img src="'+element.thumbnail+'"/></td>'+
                         '<td>'+element.category.name+'</td>'+
+                            '<td>'+
+                            '<a href="/articles/view?id='+element.id+'" th:text="#{form.articles.infor.action.view}"></a><br/>'
+                            +'</td>'
                         +'</tr>';
                     });
                     $("tbody").html(tb);
@@ -133,6 +137,9 @@ and open the template in the editor.
                             '<td>'+element.author+'</td>'+
                             '<td><img src="'+element.thumbnail+'"/></td>'+
                             '<td>'+element.category.name+'</td>'+
+                                 '<td>'+
+                                '<a href="/articles/view?id='+element.id+'" th:text="#{form.articles.infor.action.view}"></a><br/>'
+                                +'</td>'
                             +'</tr>';
                         });
                         $("tbody").html(tb);
