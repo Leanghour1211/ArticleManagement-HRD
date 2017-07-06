@@ -78,5 +78,19 @@ public class ArticleServiceImp implements ArticleService{
     public int getRowCount() {
        return articleRepository.getRowCount();
     }
+
+    
+    @Override
+    public int getFillteredRowCount(ArticleFilter filter) {
+        return articleRepository.getFilteredRowCount(filter);
+    }
+
+    @Override
+    public int getFilteredMaxpage(ArticleFilter filter) {
+        int rowcount=this.getFillteredRowCount(filter);
+        if(filter.getLimit()==null)filter.setLimit(5);
+        int maxpage=(rowcount%filter.getLimit()==0)?rowcount/filter.getLimit():(rowcount/filter.getLimit())+1;
+        return maxpage;
+    }
     
 }

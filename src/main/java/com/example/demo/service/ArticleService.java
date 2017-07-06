@@ -23,4 +23,6 @@ public interface ArticleService {
     int getMaxpage(int limit);
     List<Article> getFilteredArticles(ArticleFilter filter);
     int getRowCount();
+    int getFillteredRowCount(ArticleFilter filter);
+    int getFilteredMaxpage(ArticleFilter filter);
 }

@@ -144,6 +144,7 @@ public class ArticleController {
         model.addAttribute("article",articleService.getArticle(id));
         model.addAttribute("addStatus",false);
         model.addAttribute("page",page);
+        model.addAttribute("categories",categoryService.getAllCategory() );
         return "saveArticle";
     }
     // /articles/go?page=1

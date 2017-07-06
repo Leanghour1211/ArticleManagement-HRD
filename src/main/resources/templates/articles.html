@@ -30,7 +30,7 @@ and open the template in the editor.
             }
         </style>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
     </head>
     <body>
         <div style="float:right;">
@@ -61,6 +61,7 @@ and open the template in the editor.
                     <th th:text="#{form.articles.infor.description}">Description</th>
                     <th th:text="#{form.articles.infor.author}">Author</th>
                     <th th:text="#{form.articles.infor.cover}">Cover</th>
+                    <th th:text="#{form.articles.infor.category}">Category</th>
                     <th th:text="#{form.articles.infor.action}">Action</th>
                 </tr>
             </thead>
@@ -73,6 +74,7 @@ and open the template in the editor.
                     <td>
                         <img th:src="*{thumbnail}" />
                     </td>
+                    <td th:text="*{category.name}"></td>
                     <td>
                         <a  th:href="@{/articles/view(id=*{id})}" th:text="#{form.articles.infor.action.view}"></a><br/>
                         <a  th:href="@{/articles/remove(id=*{id},page=${page})}" th:text="#{form.articles.infor.action.remove}"></a><br/>

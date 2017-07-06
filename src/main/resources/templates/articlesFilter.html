@@ -38,6 +38,7 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
     <body>
+
         <div style="float:right;">
             <a th:href="@{/ajax/articles?lang=en}">En</a>
             <a th:href="@{/ajax/articles?lang=kh}">Kh</a>
@@ -55,6 +56,7 @@ and open the template in the editor.
             <button id="search">Search</button>
         </div>
         <br/>
+        
         <table border="1" class="table table-hover col-md-12">
             <thead>
                 <tr>
@@ -71,81 +73,191 @@ and open the template in the editor.
                 
             </tbody>
         </table>
-        
+        <div id="pagin" style="text-align: center;"></div>
         <script th:inline="javascript" >
             $(document).ready(function() {
-                $.get('/rest/categories', function(data) {
-                    var sl='';
-                    data.forEach( function(element, index) {
-                        sl+='<option value="'+element.id+'" >'+element.name+'</option>';
-                    });
-                    $("#categ").append(sl);
-                });
-                $.get('/rest/articles/get', function(data) {
-                    var tb='';
-                    data.forEach( function(element, index) {
-                        tb+='<tr>'+
-                        '<td>'+element.id+'</td>'+
-                        '<td>'+element.title+'</td>'+
-                        '<td>'+element.description+'</td>'+
-                        '<td>'+element.author+'</td>'+
-                        '<td><img src="'+element.thumbnail+'"/></td>'+
-                        '<td>'+element.category.name+'</td>'+
-                            '<td>'+
-                            '<a href="/articles/view?id='+element.id+'" th:text="#{form.articles.infor.action.view}"></a><br/>'
-                            +'</td>'
-                        +'</tr>';
-                    });
-                    $("tbody").html(tb);
-                });
-                $("#search").click(function() {
+                                        $.get('/rest/categories', function(data) {
+                                            var sl='';
+                                            data.forEach( function(element, index) {
+                                                sl+='<option value="'+element.id+'" >'+element.name+'</option>';
+                                            });
+                                            $("#categ").append(sl);
+                                        });
+                                        $.get('/rest/articles/get', function(data) {
+                                            var tb='';
+                                            data.forEach( function(element, index) {
+                                                tb+='<tr>'+
+                                                '<td>'+element.id+'</td>'+
+                                                '<td>'+element.title+'</td>'+
+                                                '<td>'+element.description+'</td>'+
+                                                '<td>'+element.author+'</td>'+
+                                                '<td><img src="'+element.thumbnail+'"/></td>'+
+                                                '<td>'+element.category.name+'</td>'+
+                                                    '<td>'+
+                                                    '<a href="/articles/view?id='+element.id+'" th:text="#{form.articles.infor.action.view}"></a><br/>'
+                                                    +'</td>'
+                                                +'</tr>';
+                                            });
+                                            $("tbody").html(tb);
 
-                    var id=$("#categ").val();
-                    var ti=$("#titl").val();
-                    var ur= '/rest/articles/get';
+                                        });
+                                        $.get('/rest/articles/getMaxpage', function(data) {
+                                            var page=data;
+                                            var pg='';
+                                            var page=data;
+                        /*<![CDATA[*/                    
+                                            for (i = 1; i <= page; i++) {
+                                                    pg+='<button class="pagination">'+i+'</button>';
+                                                }
+                        /*]]>*/
+                                            $("#pagin").html(pg);
+                                            
+                                       
+                                            // $("tbody").html(tb);
+                                            
+                                        });
+                 
+                                         $("button.pagination").click(function() {
+                                                    alert("hello");
+                                                    var id=$("#categ").val();
+                                                    var ti=$("#titl").val();
+                                                    var ur= '/rest/articles/get';
+                                                    var urp='/rest/articles/getMaxpage'
+                                                    var page=$(this).text();
 
-                    /*<![CDATA[*/
-                        if(id!=0)
-                        {
-                            ur+='?category_id='+id;
-                        }
-                        if(ti.length>0)
-                        {
-                            if(id==0)
-                            {
-                                ur+='?';
-                            }
-                            else
-                            {
-                                ur+='&';
-                            }
-                            ur+='title='+ti;
-                        }
-                                           
+                                                    /*<![CDATA[*/
+                                                        if(id!=0)
+                                                        {
+                                                            ur+='?category_id='+id;
+                                                            urp+='?category_id='+id;
+                                                        }
+                                                        if(ti.length>0)
+                                                        {
+                                                            if(id==0)
+                                                            {
+                                                                ur+='?';
+                                                                urp+='?';
+                                                            }
+                                                            else
+                                                            {
+                                                                ur+='&';
+                                                                urp+='&';
+                                                            }
+                                                            ur+='title='+ti;
+                                                            urp+='title='+ti;
+                                                        }
+                                                        ur+='&page='+page;
+                                                        urp+='&page='+page;
+                                                                           
 
-                    /*]]>*/
+                                                    /*]]>*/
 
 
-                    
-                    $.get(ur, function(data) {
-                        var tb='';
-                        data.forEach( function(element, index) {
-                            tb+='<tr>'+
-                            '<td>'+element.id+'</td>'+
-                            '<td>'+element.title+'</td>'+
-                            '<td>'+element.description+'</td>'+
-                            '<td>'+element.author+'</td>'+
-                            '<td><img src="'+element.thumbnail+'"/></td>'+
-                            '<td>'+element.category.name+'</td>'+
-                                 '<td>'+
-                                '<a href="/articles/view?id='+element.id+'" th:text="#{form.articles.infor.action.view}"></a><br/>'
-                                +'</td>'
-                            +'</tr>';
-                        });
-                        $("tbody").html(tb);
-                    });
-                });
-            });
+                                                    
+                                                    $.get(ur, function(data) {
+                                                        var tb='';
+                                                        data.forEach( function(element, index) {
+                                                            tb+='<tr>'+
+                                                            '<td>'+element.id+'</td>'+
+                                                            '<td>'+element.title+'</td>'+
+                                                            '<td>'+element.description+'</td>'+
+                                                            '<td>'+element.author+'</td>'+
+                                                            '<td><img src="'+element.thumbnail+'"/></td>'+
+                                                            '<td>'+element.category.name+'</td>'+
+                                                                 '<td>'+
+                                                                '<a href="/articles/view?id='+element.id+'" th:text="#{form.articles.infor.action.view}"></a><br/>'
+                                                                +'</td>'
+                                                            +'</tr>';
+                                                        });
+                                                        $("tbody").html(tb);
+                                                    });
+                                                    $.get(urp, function(data) {
+                                                        var page=data;
+                                                        var pg='';
+                                                        var page=data;
+                                    /*<![CDATA[*/                    
+                                                        for (i = 1; i <= page; i++) {
+                                                                pg+='<button class="pagination">'+i+'</button>';
+                                                            }
+                                    /*]]>*/
+                                                        $("#pagin").html(pg);
+                                                        
+                                                   
+                                                        // $("tbody").html(tb);
+                                                        
+                                                    });
+                                                    
+                                                });
+                            
+                                                $("#search").click(function() {
+
+                                                    var id=$("#categ").val();
+                                                    var ti=$("#titl").val();
+                                                    var ur= '/rest/articles/get';
+                                                    var urp='/rest/articles/getMaxpage';
+
+                                                    /*<![CDATA[*/
+                                                        if(id!=0)
+                                                        {
+                                                            ur+='?category_id='+id;
+                                                            ur+='?category_id='+id;
+                                                        }
+                                                        if(ti.length>0)
+                                                        {
+                                                            if(id==0)
+                                                            {
+                                                                ur+='?';
+                                                                urp+='?';
+                                                            }
+                                                            else
+                                                            {
+                                                                ur+='&';
+                                                                urp+='&';
+                                                            }
+                                                            ur+='title='+ti;
+                                                            urp+='title='+ti;
+                                                        }
+                                                                           
+
+                                                    /*]]>*/
+
+
+                                                    
+                                                    $.get(ur, function(data) {
+                                                        var tb='';
+                                                        data.forEach( function(element, index) {
+                                                            tb+='<tr>'+
+                                                            '<td>'+element.id+'</td>'+
+                                                            '<td>'+element.title+'</td>'+
+                                                            '<td>'+element.description+'</td>'+
+                                                            '<td>'+element.author+'</td>'+
+                                                            '<td><img src="'+element.thumbnail+'"/></td>'+
+                                                            '<td>'+element.category.name+'</td>'+
+                                                                 '<td>'+
+                                                                '<a href="/articles/view?id='+element.id+'" th:text="#{form.articles.infor.action.view}"></a><br/>'
+                                                                +'</td>'
+                                                            +'</tr>';
+                                                        });
+                                                        $("tbody").html(tb);
+                                                    });
+                                                    $.get(urp, function(data) {
+                                                        var page=data;
+                                                        var pg='';
+                                                        var page=data;
+                                    /*<![CDATA[*/                    
+                                                        for (i = 1; i <= page; i++) {
+                                                                pg+='<button class="pagination">'+i+'</button>';
+                                                            }
+                                    /*]]>*/
+                                                        $("#pagin").html(pg);
+                                                        
+                                                   
+                                                        // $("tbody").html(tb);
+                                                        
+                                                    });
+                                                });
+                                });
+ 
         </script>
             
     </body>

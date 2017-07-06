@@ -10,7 +10,7 @@ and open the template in the editor.
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
         <style>
             .err
             {
@@ -77,8 +77,9 @@ and open the template in the editor.
                     <tr>
                         <td>
                            <label th:text="#{form.articles.infor.category}">Category</label> 
-                           <select th:field="${article.category.id}">
-                               <option th:each="category :${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                           <select th:field="*{category.id}" >
+                               <option th:each="category :${categories}" th:value="${category.id}" th:text="${category.name}"
+                               th:selected="(${category.id}==${article.category.id})?'selected':''"></option>
                            </select>
                         </td>
                     </tr>
