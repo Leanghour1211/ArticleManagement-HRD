@@ -22,11 +22,9 @@ and open the template in the editor.
                 background-color: #907867;
             }
             .activepage{
-                
                 background-color: graytext;
             }
-            .notactivepage{
-                
+            .notactivepage{ 
             }
         </style>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -34,15 +32,13 @@ and open the template in the editor.
     </head>
     <body>
         <div style="float:right;">
-            <a th:href="@{/articles/go(page=${page},lang=en)}">En</a>
-            <a th:href="@{/articles/go(page=${page},lang=kh)}">Kh</a>
+            <a th:href="@{/articles/filter(page=${articleFilter.page},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit},lang=en)}">En</a>
+            <a th:href="@{/articles/filter(page=${articleFilter.page},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit},lang=kh)}">Kh</a>
         </div>
         <div class="col-md-12 col-sm-12 header" th:text="#{form.articles.header}">
             
         </div>
-            <div >
-            <a th:href="@{/articles/add}" class="btn btn-default" th:text="#{form.articles.addnew}">Add new Article</a>
-            </div>
+            <br/>
             <div>
                 <label th:text="#{form.articles.infor.category}"></label>
                 <select id="category" th:field="${articleFilter.category_id}">
@@ -108,14 +104,12 @@ and open the template in the editor.
                     if(id!=0)
                     {
                         ur+='&category_id='+id;
-                    
                     }
                     if(ti.length>0)
                     {
                         ur+='&title='+ti;   
                     }           
-                /*]]>*/
-                ;
+                /*]]>*/               
                 window.location.replace(ur);
             });
         });
