@@ -22,6 +22,8 @@ public class ArticleFilter {
     }
     public void initOffset()
     {
+//        if(this.page==0)page=null;
+//        if(this.category_id==0)category_id=null;
         try{
         this.offset=(page-1)*limit;
         }
