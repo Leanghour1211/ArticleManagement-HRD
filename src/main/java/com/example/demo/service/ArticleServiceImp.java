@@ -89,7 +89,9 @@ public class ArticleServiceImp implements ArticleService{
     public int getFilteredMaxpage(ArticleFilter filter) {
         int rowcount=this.getFillteredRowCount(filter);
         if(filter.getLimit()==null)filter.setLimit(5);
+        
         int maxpage=(rowcount%filter.getLimit()==0)?rowcount/filter.getLimit():(rowcount/filter.getLimit())+1;
+        if(maxpage==0)maxpage=1;
         return maxpage;
     }
     

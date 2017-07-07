@@ -31,7 +31,9 @@ public class AjaxController {
     @GetMapping("/articles/filter")
     public String getFiltered(ArticleFilter articleFilter,ModelMap model)
     {
-        articleFilter.setLimit(5);
+        if(articleFilter.getPage()>articleService.getFilteredMaxpage(articleFilter))articleFilter.setPage(articleService.getFilteredMaxpage(articleFilter));
+        else if(articleFilter.getPage()<=0)
+            articleFilter.setPage(1);
         model.addAttribute("categories",categoryService.getAllCategory());
         model.addAttribute("articles", articleService.getFilteredArticles(articleFilter));
         model.addAttribute("maxpage",articleService.getFilteredMaxpage(articleFilter));

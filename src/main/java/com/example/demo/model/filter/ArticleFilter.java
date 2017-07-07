@@ -22,8 +22,7 @@ public class ArticleFilter {
     }
     public void initOffset()
     {
-//        if(this.page==0)page=null;
-//        if(this.category_id==0)category_id=null;
+        
         try{
         this.offset=(page-1)*limit;
         }
@@ -31,6 +30,18 @@ public class ArticleFilter {
         {
             this.offset=0;
         }
+    }
+
+    public ArticleFilter()
+    {
+        this(null,null,1,5,null);
+    }
+    public ArticleFilter(Integer category_id, String title, Integer page, Integer limit, Integer offset) {
+        this.category_id = category_id;
+        this.title = title;
+        this.page = page;
+        this.limit = limit;
+        this.offset = offset;
     }
     public void setOffset(Integer offset) {
         this.offset = offset;
