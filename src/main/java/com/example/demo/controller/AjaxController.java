@@ -26,9 +26,9 @@ public class AjaxController {
     @GetMapping("/articles/filter/")
     public String getDefault()
     {
-        return "redirect:/articles/filter?page=1";
+        return "redirect:/articles/filter/go?page=1";
     }
-    @GetMapping("/articles/filter")
+    @GetMapping("/articles/filter/go")
     public String getFiltered(ArticleFilter articleFilter,ModelMap model)
     {
         if(articleFilter.getPage()>articleService.getFilteredMaxpage(articleFilter))articleFilter.setPage(articleService.getFilteredMaxpage(articleFilter));

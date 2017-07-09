@@ -32,8 +32,8 @@ and open the template in the editor.
     </head>
     <body>
         <div style="float:right;">
-            <a th:href="@{/articles/filter(page=${articleFilter.page},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit},lang=en)}">En</a>
-            <a th:href="@{/articles/filter(page=${articleFilter.page},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit},lang=kh)}">Kh</a>
+            <a th:href="@{/articles/filter/go(page=${articleFilter.page},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit},lang=en)}">En</a>
+            <a th:href="@{/articles/filter/go(page=${articleFilter.page},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit},lang=kh)}">Kh</a>
         </div>
         <div class="col-md-12 col-sm-12 header" th:text="#{form.articles.header}">
             
@@ -50,16 +50,16 @@ and open the template in the editor.
             </div>
             <div style="text-align: center">
                 <a th:each="i : ${#numbers.sequence( 1,maxpage)}" th:class="(${i}==${articleFilter.page})?activepage:notactivepage" th:text="${i}"
-                   th:href="@{/articles/filter(page=${i},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}"></a>
+                   th:href="@{/articles/filter/go(page=${i},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}"></a>
             </div>
             <div style="text-align: center">
-                <a  th:href="@{/articles/filter(page=1,category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">first</a>
+                <a  th:href="@{/articles/filter/go(page=1,category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">first</a>
 
-                <a  th:href="(${articleFilter.page}!=1)?@{/articles/filter(page=(${articleFilter.page}-1),category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}:@{/articles/filter(page=1,category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">prev</a> 
+                <a  th:href="(${articleFilter.page}!=1)?@{/articles/filter/go(page=(${articleFilter.page}-1),category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}:@{/articles/filter/go(page=1,category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">prev</a> 
 
-                <a  th:href="(${articleFilter.page}!=${maxpage})?@{/articles/filter(page=(${articleFilter.page}+1),category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}:@{/articles/filter(page=${maxpage},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">next</a> 
+                <a  th:href="(${articleFilter.page}!=${maxpage})?@{/articles/filter/go(page=(${articleFilter.page}+1),category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}:@{/articles/filter/go(page=${maxpage},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">next</a> 
 
-                <a  th:href="@{/articles/filter(page=${maxpage},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">last</a>
+                <a  th:href="@{/articles/filter/go(page=${maxpage},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">last</a>
             </div>
         <table border="1" class="table table-hover col-md-12">
             <thead>
@@ -84,7 +84,7 @@ and open the template in the editor.
                     </td>
                     <td th:text="*{category.name}"></td>
                     <td>
-                        <a  th:href="@{/articles/view(id=*{id})}" th:text="#{form.articles.infor.action.view}"></a><br/>
+                        <a  th:href="@{/articles/user/view(id=*{id})}" th:text="#{form.articles.infor.action.view}"></a><br/>
                        
                     </td>
                 </tr>

@@ -4,7 +4,8 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
     <head>
         <title>Articles</title>
         <meta charset="UTF-8"/>
@@ -34,24 +35,25 @@ and open the template in the editor.
     </head>
     <body>
         <div style="float:right;">
-            <a th:href="@{/articles/go(page=${page},lang=en)}">En</a>
-            <a th:href="@{/articles/go(page=${page},lang=kh)}">Kh</a>
+            <a th:href="@{/articles/user/go(page=${page},lang=en)}">En</a>
+            <a th:href="@{/articles/user/go(page=${page},lang=kh)}">Kh</a>
         </div>
         <div class="col-md-12 col-sm-12 header" th:text="#{form.articles.header}">
             
         </div>
-        <div >
+      
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
             <a th:href="@{/articles/add}" class="btn btn-default" th:text="#{form.articles.addnew}">Add new Article</a>
-            </div>
+        </div>
             <div style="text-align: center">
                 <a th:each="i : ${#numbers.sequence( 1,maxpage)}" th:class="(${i}==${page})?activepage:notactivepage" th:text="${i}"
-                   th:href="@{/articles/go(page=${i})}"></a>
+                   th:href="@{/articles/user/go(page=${i})}"></a>
             </div>
             <div style="text-align: center">
-                <a  th:href="@{/articles/go(page=1)}">first</a>
-                <a  th:href="(${page}!=1)?@{/articles/go(page=(${page}-1))}:@{/articles/go(page=1)}">prev</a> 
-                <a  th:href="(${page}!=${maxpage})?@{/articles/go(page=(${page}+1))}:@{/articles/go(page=${maxpage})}">next</a> 
-                <a  th:href="@{/articles/go(page=${maxpage})}">last</a>
+                <a  th:href="@{/articles/user/go(page=1)}">first</a>
+                <a  th:href="(${page}!=1)?@{/articles/user/go(page=(${page}-1))}:@{/articles/user/go(page=1)}">prev</a> 
+                <a  th:href="(${page}!=${maxpage})?@{/articles/user/go(page=(${page}+1))}:@{/articles/user/go(page=${maxpage})}">next</a> 
+                <a  th:href="@{/articles/user/go(page=${maxpage})}">last</a>
             </div>
         <table border="1" class="table table-hover col-md-12">
             <thead>
@@ -76,9 +78,9 @@ and open the template in the editor.
                     </td>
                     <td th:text="*{category.name}"></td>
                     <td>
-                        <a  th:href="@{/articles/view(id=*{id})}" th:text="#{form.articles.infor.action.view}"></a><br/>
-                        <a  th:href="@{/articles/remove(id=*{id},page=${page})}" th:text="#{form.articles.infor.action.remove}"></a><br/>
-                        <a  th:href="@{/articles/update(id=*{id},page=${page})}" th:text="#{form.articles.infor.action.edit}"></a>
+                        <a  th:href="@{/articles/user/view(id=*{id})}" th:text="#{form.articles.infor.action.view}"></a><br/>
+                        <a  sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/articles/remove(id=*{id},page=${page})}" th:text="#{form.articles.infor.action.remove}"></a><br/>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/articles/update(id=*{id},page=${page})}" th:text="#{form.articles.infor.action.edit}"></a>
                     </td>
                 </tr>
             </tbody>

@@ -68,9 +68,9 @@ public class ArticleController {
     {
 //        model.addAttribute("articles",articleService.getAllArticles());
 //        return "articles";
-        return "redirect:/articles/go?page=1";
+        return "redirect:/articles/user/go?page=1";
     }
-    @GetMapping("/articles/view")
+    @GetMapping("/articles/user/view")
     public String articledetails(ModelMap model,@PathParam("id") Integer id)
     {
         Article article=articleService.getArticle(id);
@@ -81,7 +81,7 @@ public class ArticleController {
     public String removeArticle(@PathParam("id") Integer id,@PathParam("page") Integer page)
     {
         articleService.removeArticle(id);
-        return "redirect:/articles/go?page="+page;
+        return "redirect:/articles/user/go?page="+page;
     }
     @GetMapping("/articles/add")
     public String addnewArticle(Article article, ModelMap model)
@@ -116,7 +116,7 @@ public class ArticleController {
             System.out.println("Success!");
         }
         
-        return "redirect:/articles/go?page="+articleService.getMaxpage(5);
+        return "redirect:/articles/user/go?page="+articleService.getMaxpage(5);
     }
     @PostMapping("/articles/updates") 
     public String updateArticle(@PathParam("file") MultipartFile file,@Valid Article article,BindingResult result,@PathParam("page") Integer page, ModelMap model)
@@ -136,7 +136,7 @@ public class ArticleController {
         {
             System.out.println("Success!");
         }
-        return "redirect:/articles/go?page="+page;
+        return "redirect:/articles/user/go?page="+page;
     }
     @GetMapping("/articles/update")
     public String updatenewArticle(Article article,@PathParam("id") Integer id,@PathParam("page") Integer page,ModelMap model)
@@ -148,9 +148,10 @@ public class ArticleController {
         return "saveArticle";
     }
     // /articles/go?page=1
-    @GetMapping("/articles/go")
+    @GetMapping("/articles/user/go")
     public String getViews(@PathParam("page") Integer page,ModelMap model)
     {
+        if(page==null)page=1;
         int maxpage=articleService.getMaxpage(5);
         if(maxpage==0)maxpage=1;
         if(page>maxpage)page=maxpage;
@@ -164,6 +165,11 @@ public class ArticleController {
     public String getRows()
     {
         return articleService.getRowCount()+"";
+    }
+    @GetMapping("/login")
+    public String login()
+    {
+        return "login";
     }
     
 }
