@@ -44,7 +44,7 @@ and open the template in the editor.
             
         </div>
       
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-md-12 col-sm-12">
             <a th:href="@{/articles/add}" class="btn btn-default" th:text="#{form.articles.addnew}">Add new Article</a>
         </div>
             <div th:if="(${maxpage} gt 1)" style="text-align: center" class="col-md-12 col-sm-12" >
