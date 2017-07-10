@@ -45,11 +45,11 @@ and open the template in the editor.
         <div sec:authorize="hasRole('ROLE_ADMIN')">
             <a th:href="@{/articles/add}" class="btn btn-default" th:text="#{form.articles.addnew}">Add new Article</a>
         </div>
-            <div style="text-align: center">
+            <div style="text-align: center" class="col-md-12 col-sm-12">
                 <a th:each="i : ${#numbers.sequence( 1,maxpage)}" th:class="(${i}==${page})?activepage:notactivepage" th:text="${i}"
                    th:href="@{/articles/user/go(page=${i})}"></a>
             </div>
-            <div style="text-align: center">
+            <div style="text-align: center" class="col-md-12 col-sm-12">
                 <a  th:href="@{/articles/user/go(page=1)}">first</a>
                 <a  th:href="(${page}!=1)?@{/articles/user/go(page=(${page}-1))}:@{/articles/user/go(page=1)}">prev</a> 
                 <a  th:href="(${page}!=${maxpage})?@{/articles/user/go(page=(${page}+1))}:@{/articles/user/go(page=${maxpage})}">next</a> 
