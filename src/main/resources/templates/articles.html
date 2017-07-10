@@ -37,7 +37,9 @@ and open the template in the editor.
         <div style="float:right;">
             <a th:href="@{/articles/user/go(page=${page},lang=en)}">En</a>
             <a th:href="@{/articles/user/go(page=${page},lang=kh)}">Kh</a>
+             <button style="border-radius: 50%"><a href="/logout">logout</a></button>
         </div>
+        <div class="col-md-4 col-sm-6"> Welcome <span sec:authorize="hasRole('ROLE_ADMIN')"> Admin </span> : <span sec:authentication="name"></span></div>
         <div class="col-md-12 col-sm-12 header" th:text="#{form.articles.header}">
             
         </div>
@@ -45,16 +47,17 @@ and open the template in the editor.
         <div sec:authorize="hasRole('ROLE_ADMIN')">
             <a th:href="@{/articles/add}" class="btn btn-default" th:text="#{form.articles.addnew}">Add new Article</a>
         </div>
-            <div style="text-align: center" class="col-md-12 col-sm-12">
+            <div th:if="(${maxpage} gt 1)" style="text-align: center" class="col-md-12 col-sm-12" >
                 <a th:each="i : ${#numbers.sequence( 1,maxpage)}" th:class="(${i}==${page})?activepage:notactivepage" th:text="${i}"
                    th:href="@{/articles/user/go(page=${i})}"></a>
             </div>
-            <div style="text-align: center" class="col-md-12 col-sm-12">
+            <div th:if="(${maxpage} gt 1)" style="text-align: center" class="col-md-12 col-sm-12" >
                 <a  th:href="@{/articles/user/go(page=1)}">first</a>
                 <a  th:href="(${page}!=1)?@{/articles/user/go(page=(${page}-1))}:@{/articles/user/go(page=1)}">prev</a> 
                 <a  th:href="(${page}!=${maxpage})?@{/articles/user/go(page=(${page}+1))}:@{/articles/user/go(page=${maxpage})}">next</a> 
                 <a  th:href="@{/articles/user/go(page=${maxpage})}">last</a>
             </div>
+            <div class="col-md-12 col-sm-12"><a href="/articles/filter/">Go to Filtered page</a></div>
         <table border="1" class="table table-hover col-md-12">
             <thead>
                 <tr>

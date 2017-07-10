@@ -34,7 +34,9 @@ and open the template in the editor.
         <div style="float:right;">
             <a th:href="@{/articles/filter/go(page=${articleFilter.page},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit},lang=en)}">En</a>
             <a th:href="@{/articles/filter/go(page=${articleFilter.page},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit},lang=kh)}">Kh</a>
+            <button style="border-radius: 50%"><a href="/logout">logout</a></button>
         </div>
+        <div class="col-md-4 col-sm-6"> Welcome <span sec:authorize="hasRole('ROLE_ADMIN')"> Admin </span> : <span sec:authentication="name"></span></div>
         <div class="col-md-12 col-sm-12 header" th:text="#{form.articles.header}">
             
         </div>
@@ -48,11 +50,11 @@ and open the template in the editor.
                 <label th:text="#{form.articles.infor.title}"></label><input type="text" th:value="${articleFilter.title}" id="title" />
                 <button id="search">Search</button>
             </div>
-            <div style="text-align: center">
+            <div th:if="(${maxpage} gt 1)" style="text-align: center" class="col-md-12 col-sm-12">
                 <a th:each="i : ${#numbers.sequence( 1,maxpage)}" th:class="(${i}==${articleFilter.page})?activepage:notactivepage" th:text="${i}"
                    th:href="@{/articles/filter/go(page=${i},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}"></a>
             </div>
-            <div style="text-align: center">
+            <div th:if="(${maxpage} gt 1)" style="text-align: center" class="col-md-12 col-sm-12">
                 <a  th:href="@{/articles/filter/go(page=1,category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">first</a>
 
                 <a  th:href="(${articleFilter.page}!=1)?@{/articles/filter/go(page=(${articleFilter.page}-1),category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}:@{/articles/filter/go(page=1,category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">prev</a> 
@@ -61,6 +63,7 @@ and open the template in the editor.
 
                 <a  th:href="@{/articles/filter/go(page=${maxpage},category_id=${articleFilter.category_id},title=${articleFilter.title},limit=${articleFilter.limit})}">last</a>
             </div>
+            <div class="col-md-12 col-sm-12"><a href="/articles">Go to Articles Listing page</a></div>
         <table border="1" class="table table-hover col-md-12">
             <thead>
                 <tr>
