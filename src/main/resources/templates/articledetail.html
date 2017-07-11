@@ -21,8 +21,8 @@ and open the template in the editor.
     </head>
     <body>
         <div style="float:right;">
-            <a th:href="@{/articles/view(id=${article.id},lang=en)}">En</a>
-            <a th:href="@{/articles/view(id=${article.id},lang=kh)}">Kh</a>
+            <a th:href="@{/articles/user/view(id=${article.id},lang=en)}">En</a>
+            <a th:href="@{/articles/user/view(id=${article.id},lang=kh)}">Kh</a>
         </div>
         <h1 th:text="#{form.article.details.header}">Article Detail</h1>
         <div th:object="${article}">
